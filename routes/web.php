@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+Route::get('/settings', [SettingsController::class,'edit'])->middleware(['auth'])->name('settings.edit');
+Route::post('/settings', [SettingsController::class,'update'])->middleware(['auth'])->name('settings.update');
+
+require __DIR__.'/auth.php';
